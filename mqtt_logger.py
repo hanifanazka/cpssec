@@ -1,6 +1,7 @@
 import paho.mqtt.client as mqtt
 import json
 import sqlite3
+import ssl
 
 # Database setup
 conn = sqlite3.connect("medical_logs.db", check_same_thread=False)
@@ -18,7 +19,8 @@ cursor.execute("""
 conn.commit()
 
 # MQTT Settings
-MQTT_BROKER = "localhost"
+MQTT_BROKER = "dellblack"
+MQTT_PORT = 8883
 MQTT_PORT = 1883
 TOPIC = "medical/devices"
 
@@ -38,6 +40,13 @@ def on_message(client, userdata, msg):
     conn.commit()
 
 client = mqtt.Client()
+#client.tls_set(
+#    ca_certs='cert/ca.crt', 
+#    certfile='cert/client_logger.crt',
+#    keyfile='cert/client_logger.key',
+#    tls_version=ssl.PROTOCOL_TLSv1_2
+#)
+#client.tls_insecure_set(True)
 client.on_connect = on_connect
 client.on_message = on_message
 

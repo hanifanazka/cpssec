@@ -7,12 +7,14 @@ import random
 faker = Faker()
 
 # MQTT Settings
-MQTT_BROKER = "localhost"
+MQTT_BROKER = "dellblack"
+#MQTT_PORT = 8883
 MQTT_PORT = 1883
 TOPIC = "medical/devices"
 
 # Create MQTT client
 client = mqtt.Client()
+#client.tls_set(ca_certs='ca.crt')
 client.connect(MQTT_BROKER, MQTT_PORT, 60)
 
 # Predefined device pool with stable IDs
